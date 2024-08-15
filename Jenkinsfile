@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker build -t maorsh6/my-python-app .'
+                    bat 'docker build -t maorsh6/my-python-app .'
                 }
             }
         }
@@ -17,7 +17,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'echo "Running tests..."'
+                    bat 'echo "Running tests..."'
                 }
             }
         }
@@ -25,10 +25,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
-                    sh 'docker push maorsh6/my-python-app:latest'
-                    sh 'kubectl apply -f deployment.yaml'
-                    sh 'kubectl apply -f service.yaml'
+                    bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
+                    bat 'docker push maorsh6/my-python-app:latest'
+                    bat 'kubectl apply -f deployment.yaml'
+                    bat 'kubectl apply -f service.yaml'
                 }
             }
         }
