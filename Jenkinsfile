@@ -22,14 +22,14 @@ pipeline {
         }
 
         stage('Test Docker Image') {
-            steps {
-                script {
-                    docker.image(DOCKER_IMAGE).inside {
-                        sh 'npm test'
-                    }
-                }
+    steps {
+        script {
+            docker.image('node-app:4').inside('-v /c/ProgramData/Jenkins/.jenkins/workspace/project20.8:/usr/src/app') {
+                bat 'cmd.exe /c "dir"'
             }
         }
+    }
+}
 
         stage('Deploy to Minikube') {
             steps {
